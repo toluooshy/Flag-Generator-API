@@ -6,4 +6,4 @@ Pillow==9.1.1
 pydantic==1.9.1
 requests==2.22.0
 python-multipart==0.0.5
-lxml==4.9.0pipreqs
+lxml==4.9.0
