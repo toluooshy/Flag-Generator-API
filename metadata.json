@@ -1,0 +1,16 @@
+{
+    "name": "Americans Flags NFT (LIVE)",
+    "description": "This Americans Flags NFT is locked and is one of many interpretations of 'America'.",
+    "image": "https://infura-ipfs.io/ipfs/QmNhwd7QxRLg5LuJTqpS3iaY3BNDjREN1yZtLFonkfFfHT",
+    "edition": 2022,
+    "attributes": [
+        {
+            "trait_type": "Stars Background Image Url",
+            "value": "https://c.tenor.com/MKASeVrumv8AAAAC/speed-speed-bouncing.gif"
+        },
+        {
+            "trait_type": "Stripes Background Image Url",
+            "value": "https://media3.giphy.com/media/sRHVFZVZlHsOBwYTFn/giphy.gif"
+        }
+    ]
+}
