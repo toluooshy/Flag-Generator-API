@@ -4,13 +4,15 @@ import json
 
 
 class FlagGenerator:
-    def __init__(self, starsUrl, stripesUrl):
+    def __init__(self, id, starsUrl, stripesUrl, changesLeft):
+        self.id = id
         self.starsUrl = starsUrl
         self.stripesUrl = stripesUrl
         self.starsImage = Image.open(requests.get(
             starsUrl, stream=True).raw).resize((500, 300), Image.ANTIALIAS).convert("RGBA")
         self.stripesImage = Image.open(requests.get(
             stripesUrl, stream=True).raw).resize((1000, 600), Image.ANTIALIAS).convert("RGBA")
+        self.changesLeft = changesLeft
 
     def compile(self):
         """
@@ -44,9 +46,10 @@ class FlagGenerator:
             flagUrl = "https://infura-ipfs.io/ipfs/" + hash
 
             metadata = {
-                "name": "Americans Flags NFT (LIVE)",
-                "description": "This Americans Flags NFT is locked and is one of many interpretations of 'America'.",
+                "name": "Americans Flags NFT" + self.id + "(LIVE)" if self.changesLeft == 1 else "(WIP)",
+                "description": "This live Americans Flags NFT is one of the many interpretations of 'America'." if self.changesLeft == 1 else "This work-in-progress Americans Flags NFT is one of the many interpretations of 'America'.",
                 "image": flagUrl,
+                "id": self.id,
                 "edition": 2022,
                 "attributes":
                 [
@@ -80,6 +83,6 @@ class FlagGenerator:
 if __name__ == "__main__":
     starsLink = "https://thumbor.forbes.com/thumbor/fit-in/x/https://www.forbes.com/advisor/ca/wp-content/uploads/2022/05/ethereum-1.jpeg"
     stripesLink = "https://upload.wikimedia.org/wikipedia/en/2/27/Bliss_%28Windows_XP%29.png"
-    generator = FlagGenerator(starsLink, stripesLink)
+    generator = FlagGenerator(0, starsLink, stripesLink, 3)
     generator.compile()
     # print(generator.upload())
