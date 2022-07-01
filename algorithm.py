@@ -45,8 +45,9 @@ class FlagGenerator:
             hash = response1.text.split(",")[1].split(":")[1].replace('"', '')
             flagUrl = "https://infura-ipfs.io/ipfs/" + hash
 
+            suffix = "(LIVE)" if self.changesLeft == 1 else "(WIP)"
             metadata = {
-                "name": "Americans Flags NFT" + self.id + "(LIVE)" if self.changesLeft == 1 else "(WIP)",
+                "name": "Americans Flags NFT" + self.id + suffix,
                 "description": "This live Americans Flags NFT is one of the many interpretations of 'America'." if self.changesLeft == 1 else "This work-in-progress Americans Flags NFT is one of the many interpretations of 'America'.",
                 "image": flagUrl,
                 "id": self.id,
