@@ -23,9 +23,13 @@ class FlagGenerator:
         Returns: none
         """
 
-        flag = Image.new("RGBA", self.stripesImage.size)
-        flag = Image.alpha_composite(flag, self.stripesImage)
-        flag.paste(self.starsImage, (0, 0))
+        stripes = Image.new("RGBA", self.stripesImage.size)
+        stripes = Image.alpha_composite(stripes, self.stripesImage)
+
+        stars = Image.new("RGBA", self.stripesImage.size)
+        stars.paste(self.starsImage, (0, 0))
+
+        flag = Image.alpha_composite(stripes, stars)
         flag.save("flag.png")
         self.flag = flag
 
@@ -45,7 +49,7 @@ class FlagGenerator:
             hash = response1.text.split(",")[1].split(":")[1].replace('"', '')
             flagUrl = "https://infura-ipfs.io/ipfs/" + hash
 
-            suffix = "(LIVE)" if self.changesLeft == 1 else "(WIP)"
+            suffix = " (LIVE)" if self.changesLeft == 1 else " (WIP)"
             metadata = {
                 "name": "Americans Flags NFT #" + str(self.id) + suffix,
                 "description": "This live Americans Flags NFT is one of the many interpretations of 'America'." if self.changesLeft == 1 else "This work-in-progress Americans Flags NFT is one of the many interpretations of 'America'.",
