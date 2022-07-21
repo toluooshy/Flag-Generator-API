@@ -4,10 +4,11 @@ import json
 
 
 class FlagGenerator:
-    def __init__(self, id, starsUrl, stripesUrl, changesLeft):
+    def __init__(self, id, starsUrl, stripesUrl, description, changesLeft):
         self.id = id
         self.starsUrl = starsUrl
         self.stripesUrl = stripesUrl
+        self.description = description
         self.starsImage = Image.open(requests.get(
             starsUrl, stream=True).raw).resize((500, 300), Image.ANTIALIAS).convert("RGBA")
         self.stripesImage = Image.open(requests.get(
@@ -52,12 +53,16 @@ class FlagGenerator:
             suffix = " (LIVE)" if self.changesLeft == 1 else " (WIP)"
             metadata = {
                 "name": "Americans Flags NFT #" + str(self.id) + suffix,
-                "description": "This live Americans Flags NFT is one of the many interpretations of 'America'." if self.changesLeft == 1 else "This work-in-progress Americans Flags NFT is one of the many interpretations of 'America'.",
+                "description": self.description,
                 "image": flagUrl,
                 "id": self.id,
                 "edition": 2022,
                 "attributes":
                 [
+                    {
+                        "trait_type": "Flag Status",
+                        "value": "Live" if self.changesLeft == 1 else "Work-In-Progress"
+                    },
                     {
                         "trait_type": "Stars Background Image Url",
                         "value": self.starsUrl
@@ -88,6 +93,7 @@ class FlagGenerator:
 if __name__ == "__main__":
     starsLink = "https://thumbor.forbes.com/thumbor/fit-in/x/https://www.forbes.com/advisor/ca/wp-content/uploads/2022/05/ethereum-1.jpeg"
     stripesLink = "https://upload.wikimedia.org/wikipedia/en/2/27/Bliss_%28Windows_XP%29.png"
-    generator = FlagGenerator(0, starsLink, stripesLink, 3)
+    description = "Hello world!"
+    generator = FlagGenerator(0, starsLink, stripesLink, description, 3)
     generator.compile()
     # print(generator.upload())
