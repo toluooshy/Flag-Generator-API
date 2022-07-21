@@ -1,16 +1,21 @@
 {
-    "name": "Americans Flags NFT (LIVE)",
-    "description": "This Americans Flags NFT is locked and is one of many interpretations of 'America'.",
-    "image": "https://infura-ipfs.io/ipfs/QmNhwd7QxRLg5LuJTqpS3iaY3BNDjREN1yZtLFonkfFfHT",
+    "name": "Americans Flags NFT #12 (LIVE)",
+    "description": "flags",
+    "image": "https://infura-ipfs.io/ipfs/QmQfjQ3KgYXVyremodqeC6k1hUhTPv6EHMcEKqaKpKxNBp",
+    "id": 12,
     "edition": 2022,
     "attributes": [
         {
+            "trait_type": "Flag Status",
+            "value": "Live"
+        },
+        {
             "trait_type": "Stars Background Image Url",
-            "value": "https://c.tenor.com/MKASeVrumv8AAAAC/speed-speed-bouncing.gif"
+            "value": "https://thumbor.forbes.com/thumbor/fit-in/x/https://www.forbes.com/advisor/ca/wp-content/uploads/2022/05/ethereum-1.jpeg"
         },
         {
             "trait_type": "Stripes Background Image Url",
-            "value": "https://media3.giphy.com/media/sRHVFZVZlHsOBwYTFn/giphy.gif"
+            "value": "https://upload.wikimedia.org/wikipedia/en/2/27/Bliss_%28Windows_XP%29.png"
         }
     ]
 }
