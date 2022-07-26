@@ -27,7 +27,6 @@ class FlagGenerator:
         Use: defines self.flag
         Returns: none
         """
-
         canvas = Image.new("RGBA", (478, 345))
         canvas.paste(self.starsImage, (25, 25))
         stars = Image.alpha_composite(canvas, Image.open("stars.png").resize(
@@ -48,7 +47,6 @@ class FlagGenerator:
         Use: defines self.metadata
         Returns: jsonUrl
         """
-
         with open('flag.png', "rb") as a_file:
             file_dict = {"file_to_upload.txt": a_file}
             response1 = requests.post(
