@@ -10,9 +10,9 @@ class FlagGenerator:
         self.stripesUrl = stripesUrl
         self.description = description
         self.starsImage = Image.open(requests.get(
-            starsUrl, stream=True).raw).resize((500, 300), Image.ANTIALIAS).convert("RGBA")
+            starsUrl, stream=True).raw).resize((430, 297), Image.ANTIALIAS).convert("RGBA")
         self.stripesImage = Image.open(requests.get(
-            stripesUrl, stream=True).raw).resize((1000, 600), Image.ANTIALIAS).convert("RGBA")
+            stripesUrl, stream=True).raw).resize((920, 552), Image.ANTIALIAS).convert("RGBA")
         self.changesLeft = changesLeft
 
     def compile(self):
@@ -24,13 +24,15 @@ class FlagGenerator:
         Returns: none
         """
 
-        stripes = Image.new("RGBA", self.stripesImage.size)
-        stripes = Image.alpha_composite(stripes, self.stripesImage)
-
-        stars = Image.new("RGBA", self.stripesImage.size)
-        stars.paste(self.starsImage, (0, 0))
-
-        flag = Image.alpha_composite(stripes, stars)
+        canvas = Image.new("RGBA", (478, 345))
+        canvas.paste(self.starsImage, (25, 25))
+        stars = Image.alpha_composite(canvas, Image.open("stars.png").resize(
+            (478, 345), Image.ANTIALIAS).convert("RGBA"))
+        stripes = Image.new("RGBA", (1000, 630))
+        stripes.paste(self.stripesImage, (49, 47))
+        flag = Image.alpha_composite(stripes, Image.open("stripes.png").resize(
+            (1000, 630), Image.ANTIALIAS).convert("RGBA"))
+        flag.paste(stars, (0, 0))
         flag.save("flag.png")
         self.flag = flag
 
@@ -49,7 +51,6 @@ class FlagGenerator:
                 'https://ipfs.infura.io:5001/api/v0/add', files=file_dict)
             hash = response1.text.split(",")[1].split(":")[1].replace('"', '')
             flagUrl = "https://infura-ipfs.io/ipfs/" + hash
-
             suffix = " (LIVE)" if self.changesLeft == 1 else " (WIP)"
             metadata = {
                 "name": "Americans Flags NFT #" + str(self.id) + suffix,
@@ -73,11 +74,9 @@ class FlagGenerator:
                     }
                 ]
             }
-
             json_object = json.dumps(metadata, indent=4)
             with open("metadata.json", "w") as outfile:
                 outfile.write(json_object)
-
             with open('metadata.json', "rb") as outfileJSON:
                 file_dict_json = {"file_to_upload.txt": outfileJSON}
                 response2 = requests.post(
@@ -85,7 +84,6 @@ class FlagGenerator:
                 hash = response2.text.split(",")[1].split(":")[
                     1].replace('"', '')
                 jsonUrl = "https://infura-ipfs.io/ipfs/" + hash
-
                 print(jsonUrl)
                 return jsonUrl
 
