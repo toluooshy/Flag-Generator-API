@@ -6,8 +6,12 @@ from algorithm import FlagGenerator
 
 class Payload(BaseModel):
     id: int
-    stars: str
-    stripes: str
+    starsUrl: str
+    stripesUrl: str
+    starsTitle: str
+    stripesTitle: str
+    starsSummary: str
+    stripesSummary: str
     description: str
     changesLeft: int
 
@@ -40,7 +44,7 @@ def read_root():
 async def generate_flag(data: Payload) -> dict:
     if (data.changesLeft > 0):
         generator = FlagGenerator(
-            data.id, data.stars, data.stripes, data.description, data.changesLeft)
+            data.id, data.starsUrl, data.stripesUrl, data.starsTitle, data.stripesTitle, data.starsSummary, data.stripesSummary, data.description, data.changesLeft)
         generator.compile()
         return generator.upload()
     else:
