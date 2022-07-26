@@ -4,10 +4,14 @@ import json
 
 
 class FlagGenerator:
-    def __init__(self, id, starsUrl, stripesUrl, description, changesLeft):
+    def __init__(self, id, starsUrl, stripesUrl, starsTitle, stripesTitle, starsSummary, stripesSummary, description, changesLeft):
         self.id = id
         self.starsUrl = starsUrl
         self.stripesUrl = stripesUrl
+        self.starsTitle = starsTitle
+        self.stripesTitle = stripesTitle
+        self.starsSummary = starsSummary
+        self.stripesSummary = stripesSummary
         self.description = description
         self.starsImage = Image.open(requests.get(
             starsUrl, stream=True).raw).resize((430, 297), Image.ANTIALIAS).convert("RGBA")
@@ -69,8 +73,24 @@ class FlagGenerator:
                         "value": self.starsUrl
                     },
                     {
+                        "trait_type": "Stars Background Image Title",
+                        "value": self.starsTitle
+                    },
+                    {
+                        "trait_type": "Stars Background Image Summary",
+                        "value": self.starsSummary
+                    },
+                    {
                         "trait_type": "Stripes Background Image Url",
                         "value": self.stripesUrl
+                    },
+                    {
+                        "trait_type": "Stripes Background Image Title",
+                        "value": self.stripesTitle
+                    },
+                    {
+                        "trait_type": "Stripes Background Image Summary",
+                        "value": self.stripesSummary
                     }
                 ]
             }
@@ -91,7 +111,12 @@ class FlagGenerator:
 if __name__ == "__main__":
     starsLink = "https://thumbor.forbes.com/thumbor/fit-in/x/https://www.forbes.com/advisor/ca/wp-content/uploads/2022/05/ethereum-1.jpeg"
     stripesLink = "https://upload.wikimedia.org/wikipedia/en/2/27/Bliss_%28Windows_XP%29.png"
+    starsName = "Ether to the moon!"
+    stripesName = "PC on top"
+    starsDesc = "Cool Ethereum logo"
+    stripesDesc = "Windows XP pasture"
     description = "Hello world!"
-    generator = FlagGenerator(0, starsLink, stripesLink, description, 3)
+    generator = FlagGenerator(0, starsLink, stripesLink, starsName,
+                              stripesName, starsDesc, stripesDesc, description, 3)
     generator.compile()
     # print(generator.upload())
