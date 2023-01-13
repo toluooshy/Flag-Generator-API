@@ -2,6 +2,9 @@ from PIL import Image
 import requests
 import json
 
+projectId = "2KHm9KJmiddsClBskS6cDdNwJII"
+projectSecret = "439643f1fdd076da3fe2fa36a33bdfb7"
+
 
 class FlagGenerator:
     def __init__(self, id, starsUrl, stripesUrl, starsTitle, stripesTitle, starsSummary, stripesSummary, description, changesLeft):
@@ -50,7 +53,7 @@ class FlagGenerator:
         with open('flag.png', "rb") as a_file:
             file_dict = {"file_to_upload.txt": a_file}
             response1 = requests.post(
-                'https://ipfs.infura.io:5001/api/v0/add', files=file_dict)
+                'https://ipfs.infura.io:5001/api/v0/add', files=file_dict, auth=(projectId, projectSecret))
             hash = response1.text.split(",")[1].split(":")[1].replace('"', '')
             flagUrl = "https://infura-ipfs.io/ipfs/" + hash
             suffix = " (LIVE)" if self.changesLeft == 1 else " (WIP)"
@@ -59,7 +62,7 @@ class FlagGenerator:
                 "description": self.description,
                 "image": flagUrl,
                 "id": self.id,
-                "edition": 2022,
+                "edition": 2023,
                 "attributes":
                 [
                     {
