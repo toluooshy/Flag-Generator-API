@@ -1,6 +1,7 @@
 from PIL import Image
 import requests
 import json
+import datetime
 
 projectId = "2KHm9KJmiddsClBskS6cDdNwJII"
 projectSecret = "439643f1fdd076da3fe2fa36a33bdfb7"
@@ -62,7 +63,7 @@ class FlagGenerator:
                 "description": self.description,
                 "image": flagUrl,
                 "id": self.id,
-                "edition": 2023,
+                "edition": datetime.date.today().year,
                 "attributes":
                 [
                     {
@@ -101,11 +102,10 @@ class FlagGenerator:
             with open('metadata.json', "rb") as outfileJSON:
                 file_dict_json = {"file_to_upload.txt": outfileJSON}
                 response2 = requests.post(
-                    'https://ipfs.infura.io:5001/api/v0/add', files=file_dict_json)
+                'https://ipfs.infura.io:5001/api/v0/add', files=file_dict_json, auth=(projectId, projectSecret))
                 hash = response2.text.split(",")[1].split(":")[
                     1].replace('"', '')
                 jsonUrl = "https://infura-ipfs.io/ipfs/" + hash
-                print(jsonUrl)
                 return jsonUrl
 
 
@@ -120,4 +120,4 @@ if __name__ == "__main__":
     generator = FlagGenerator(0, starsLink, stripesLink, starsName,
                               stripesName, starsDesc, stripesDesc, description, 3)
     generator.compile()
-    # print(generator.upload())
+    print(generator.upload())
