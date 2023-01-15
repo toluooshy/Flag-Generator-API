@@ -93,6 +93,10 @@ class FlagGenerator:
                     {
                         "trait_type": "Stripes Background Image Summary",
                         "value": self.stripesSummary
+                    },
+                    {
+                        "trait_type": "Changes Left",
+                        "value": self.changesLeft
                     }
                 ]
             }
