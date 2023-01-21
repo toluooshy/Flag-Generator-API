@@ -13,6 +13,7 @@ class Payload(BaseModel):
     starsSummary: str
     stripesSummary: str
     description: str
+    lastChanged: int
     changesLeft: int
 
 
@@ -44,7 +45,7 @@ def read_root():
 async def generate_flag(data: Payload) -> dict:
     if (data.changesLeft > 0):
         generator = FlagGenerator(
-            data.id, data.starsUrl, data.stripesUrl, data.starsTitle, data.stripesTitle, data.starsSummary, data.stripesSummary, data.description, data.changesLeft)
+            data.id, data.starsUrl, data.stripesUrl, data.starsTitle, data.stripesTitle, data.starsSummary, data.stripesSummary, data.description, data.lastChanged, data.changesLeft)
         generator.compile()
         return generator.upload()
     else:

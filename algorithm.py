@@ -8,7 +8,7 @@ projectSecret = "439643f1fdd076da3fe2fa36a33bdfb7"
 
 
 class FlagGenerator:
-    def __init__(self, id, starsUrl, stripesUrl, starsTitle, stripesTitle, starsSummary, stripesSummary, description, changesLeft):
+    def __init__(self, id, starsUrl, stripesUrl, starsTitle, stripesTitle, starsSummary, stripesSummary, description, lastChanged, changesLeft):
         self.id = id
         self.starsUrl = starsUrl
         self.stripesUrl = stripesUrl
@@ -21,6 +21,7 @@ class FlagGenerator:
             starsUrl, stream=True).raw).resize((430, 297), Image.ANTIALIAS).convert("RGBA")
         self.stripesImage = Image.open(requests.get(
             stripesUrl, stream=True).raw).resize((920, 552), Image.ANTIALIAS).convert("RGBA")
+        self.lastChanged = lastChanged
         self.changesLeft = changesLeft
 
     def compile(self):
@@ -93,6 +94,10 @@ class FlagGenerator:
                     {
                         "trait_type": "Stripes Background Image Summary",
                         "value": self.stripesSummary
+                    },
+                    {
+                        "trait_type": "Left Changed",
+                        "value": self.lastChanged
                     },
                     {
                         "trait_type": "Changes Left",
