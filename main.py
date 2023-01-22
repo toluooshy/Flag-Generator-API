@@ -22,9 +22,9 @@ app = FastAPI()
 origins = [
     "http://localhost:3000",
     "localhost:3000",
-    "https://main.d5g9oyj5u2wzt.amplifyapp.com",
-    "http://main.d5g9oyj5u2wzt.amplifyapp.com",
-    "main.d5g9oyj5u2wzt.amplifyapp.com",
+    "https://americans-flags-nft.herokuapp.com",
+    "http://americans-flags-nft.herokuapp.com",
+    "americans-flags-nft.herokuapp.com",
 ]
 
 app.add_middleware(
