@@ -8,7 +8,7 @@ projectSecret = "439643f1fdd076da3fe2fa36a33bdfb7"
 
 
 class FlagGenerator:
-    def __init__(self, id, starsUrl, stripesUrl, starsTitle, stripesTitle, starsSummary, stripesSummary, description, lastChanged, changesLeft):
+    def __init__(self, id, starsUrl, stripesUrl, starsTitle, stripesTitle, starsSummary, stripesSummary, name, description, lastChanged, changesLeft):
         self.id = id
         self.starsUrl = starsUrl
         self.stripesUrl = stripesUrl
@@ -16,6 +16,7 @@ class FlagGenerator:
         self.stripesTitle = stripesTitle
         self.starsSummary = starsSummary
         self.stripesSummary = stripesSummary
+        self.name = name
         self.description = description
         self.starsImage = Image.open(requests.get(
             starsUrl, stream=True).raw).resize((430, 297), Image.ANTIALIAS).convert("RGBA")
@@ -58,7 +59,7 @@ class FlagGenerator:
                 'https://ipfs.infura.io:5001/api/v0/add', files=file_dict, auth=(projectId, projectSecret))
             hash = response1.text.split(",")[1].split(":")[1].replace('"', '')
             flagUrl = "https://infura-ipfs.io/ipfs/" + hash
-            suffix = " (LIVE)" if self.changesLeft == 1 else " (WIP)"
+            suffix = ': "' + self.name + '"'
             metadata = {
                 "name": "Americans Flags NFT #" + str(self.id) + suffix,
                 "description": self.description,
@@ -125,8 +126,9 @@ if __name__ == "__main__":
     stripesName = "PC on top"
     starsDesc = "Cool Ethereum logo"
     stripesDesc = "Windows XP pasture"
-    description = "Hello world!"
+    name = "Hello World!"
+    description = "Here is a description of my flag, I love it so much!"
     generator = FlagGenerator(0, starsLink, stripesLink, starsName,
-                              stripesName, starsDesc, stripesDesc, description, 3)
+                              stripesName, starsDesc, stripesDesc, name, description, 0, 3)
     generator.compile()
     print(generator.upload())
